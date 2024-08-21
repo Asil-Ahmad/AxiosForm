@@ -29,7 +29,6 @@ const Form = () => {
   const onInputChange = (e) => {
     //we are destructuring e.target.value and e.target.name below....
     const { name, value } = e.target;
-
     setUsers((prevState) => ({ ...prevState, [name]: value }));
   };
 
