@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Form = () => {
+  const navigate = useNavigate();
   const [users, setUsers] = useState({ username: "", email: "", password: "" });
   const { username, email, password } = users; //destructure
   const url = "https://66b358917fba54a5b7ec8d2f.mockapi.io";
@@ -16,6 +18,10 @@ const Form = () => {
         .then(function (response) {
           console.log(response);
           console.log("Response Data:-", response.data);
+
+          alert("User Registered Successfully.");
+          navigate("/")
+          
         })
         .catch(function (error) {
           console.log(error);
