@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 const UsersList = () => {
   const url = "https://66b358917fba54a5b7ec8d2f.mockapi.io";
   const [users, setUsers] = useState([]);
- 
 
   const fetchUsers = async () => {
     try {
@@ -24,8 +23,6 @@ const UsersList = () => {
       alert("An error occured!");
     }
   };
-
-
 
   useEffect(() => {
     fetchUsers();
@@ -51,44 +48,50 @@ const UsersList = () => {
             </tr>
           </thead>
           <tbody>
-            {users
-              ? users.map((item, index) => (
-                  <tr
-                    key={index}
-                    className='bg-white border-b dark:bg-gray-800 dark:border-gray-700'
+            {users.length > 0 ? (
+              users.map((item, index) => (
+                <tr
+                  key={index}
+                  className='bg-white border-b dark:bg-gray-800 dark:border-gray-700'
+                >
+                  <th
+                    scope='row'
+                    className='px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white'
                   >
-                    <th
-                      scope='row'
-                      className='px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white'
-                    >
-                      {item.id}
-                    </th>
-                    <td className='px-6 py-4'>{item.users.username}</td>
-                    <td className='px-6 py-4'>{item.users.email}</td>
-                    <Link
-                      to={`/updateuser/${item.id}`}
-                      onClick={() => updateUser(item.id)}
+                    {item.id}
+                  </th>
+                  <td className='px-6 py-4'>{item.users.username}</td>
+                  <td className='px-6 py-4'>{item.users.email}</td>
+                  <Link
+                    to={`/updateuser/${item.id}`}
+                    onClick={() => updateUser(item.id)}
+                    className='text-white'
+                  >
+                    <td className='px-6 py-4 bg-green-600 hover:bg-green-700 hover:animate-pulse'>
+                      Update
+                    </td>
+                  </Link>
+                  <td className='px-6 py-4 bg-red-500 hover:bg-red-600 hover:animate-pulse'>
+                    <button
+                      onClick={() => deleteUser(item.id)}
                       className='text-white'
                     >
-                      <td className='px-6 py-4 bg-green-600 hover:bg-green-700 hover:animate-pulse'>
-                        Update
-                      </td>
-                    </Link>
-                    <td className='px-6 py-4 bg-red-500 hover:bg-red-600 hover:animate-pulse'>
-                      <button
-                        onClick={() => deleteUser(item.id)}
-                        className='text-white'
-                      >
-                        Delete
-                      </button>
-                    </td>
-                  </tr>
-                ))
-              : "No user found"}
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan='5' className='px-6 py-4 text-center'>
+                  No user found
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
         <Link
-          className='py-2 mt-5 flex justify-center bg-black text-white font-medium'
+          className='py-2 mt-5 flex justify-center bg-black hover:bg-black/50 hover:scale-105 transition-all duration-200 text-white font-medium'
           to='/register'
         >
           Register New User
